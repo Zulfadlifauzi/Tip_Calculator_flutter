@@ -21,3 +21,9 @@ TextStyle get titleStyle {
           color: color.AppColor.kTextColor,
           fontWeight: FontWeight.bold)));
 }
+
+TextStyle get subTitleStyle {
+  return GoogleFonts.lato(
+      textStyle: (const TextStyle(
+          fontSize: 20, color: Colors.grey, fontWeight: FontWeight.bold)));
+}

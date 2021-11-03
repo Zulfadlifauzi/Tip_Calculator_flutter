@@ -46,7 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
               height: 450,
               child: Column(
-                children: const [Text('Hello')],
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      padding: const EdgeInsets.only(top: 20, left: 20),
+                      child: Text(
+                        'Hello',
+                        style: subTitleStyle,
+                      ))
+                ],
               ),
             )
           ],
