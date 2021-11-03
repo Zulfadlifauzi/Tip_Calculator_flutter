@@ -13,51 +13,73 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        child: Column(
-          children: [
-            Center(
-              child: Container(
-                padding: const EdgeInsets.only(top: 80),
-                child: Column(
-                  children: [
-                    Text(
-                      'SPLI',
-                      style: titleStyle,
-                    ),
-                    Text(
-                      'TTER',
-                      style: titleStyle,
-                    ),
-                  ],
+      body: SingleChildScrollView(
+        child: Container(
+          color: color.AppColor.kPrimaryColor,
+          width: double.infinity,
+          child: Column(
+            children: [
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.only(top: 80),
+                  child: Column(
+                    children: [
+                      Text(
+                        'SPLI',
+                        style: titleStyle,
+                      ),
+                      Text(
+                        'TTER',
+                        style: titleStyle,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
-              width: double.infinity,
-              height: 450,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      padding: const EdgeInsets.only(top: 20, left: 20),
-                      child: Text(
-                        'Hello',
-                        style: subTitleStyle,
-                      ))
-                ],
+              const SizedBox(
+                height: 50,
               ),
-            )
-          ],
+              Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30))),
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  children: [
+                    Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 25, horizontal: 35),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Bills',
+                              style: subTitleStyle,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextField(
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                  filled: true,
+                                  fillColor: color.AppColor.kTextFieldColor,
+                                  border: InputBorder.none,
+                                  hintText: 'eg 100',
+                                  prefixIcon: Icon(Icons.attach_money_rounded)),
+                              style: textFieldStyle,
+                              textAlign: TextAlign.end,
+                            ),
+                          ],
+                        )),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
