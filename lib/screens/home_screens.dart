@@ -9,6 +9,22 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+double bill = 0;
+double tip = 0;
+int person = 1;
+
+double tipPerPerson = 0;
+double totalPerPerson = 0;
+
+TextEditingController billController = TextEditingController();
+TextEditingController tipController = TextEditingController();
+TextEditingController personController = TextEditingController();
+
+void calculate() {
+  tipPerPerson = (bill * tip) / person;
+  totalPerPerson = (bill * (1 + tip)) / person;
+}
+
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
@@ -17,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Container(
           color: color.AppColor.kPrimaryColor,
           width: double.infinity,
-          height: 862.0,
+          // height: 862.0,
           child: Column(
             children: [
               Center(
@@ -47,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30))),
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height,
+                // height: MediaQuery.of(context).size.height,
                 child: Column(
                   children: [
                     Container(
@@ -64,7 +80,20 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10,
                             ),
                             TextField(
-                              readOnly: true,
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(),
+                              controller: billController,
+                              onEditingComplete: () {
+                                setState(() {
+                                  if (billController.text.isNotEmpty) {
+                                    bill = double.parse(billController.text);
+                                  } else {
+                                    bill = 0;
+                                  }
+                                  FocusScope.of(context).unfocus();
+                                  calculate();
+                                });
+                              },
                               decoration: const InputDecoration(
                                   filled: true,
                                   fillColor: color.AppColor.kTextFieldColor,
@@ -93,7 +122,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color.AppColor.kElevetedButtonColor,
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 20)),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(() {
+                                        tip = 0.05;
+                                        calculate();
+                                      });
+                                    },
                                     child: Text('5%', style: textButtonStyle),
                                   ),
                                 ),
@@ -107,7 +141,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color.AppColor.kElevetedButtonColor,
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 20)),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(() {
+                                        tip = 0.1;
+                                        calculate();
+                                      });
+                                    },
                                     child: Text('10%', style: textButtonStyle),
                                   ),
                                 ),
@@ -125,7 +164,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color.AppColor.kElevetedButtonColor,
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 20)),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(() {
+                                        tip = 0.15;
+                                        calculate();
+                                      });
+                                    },
                                     child: Text('15%', style: textButtonStyle),
                                   ),
                                 ),
@@ -139,7 +183,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color.AppColor.kElevetedButtonColor,
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 20)),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(() {
+                                        tip = 0.2;
+                                        calculate();
+                                      });
+                                    },
                                     child: Text('20%', style: textButtonStyle),
                                   ),
                                 ),
@@ -157,7 +206,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                             color.AppColor.kElevetedButtonColor,
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 20)),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      setState(() {
+                                        tip = 0.25;
+                                        calculate();
+                                      });
+                                    },
                                     child: Text('25%', style: textButtonStyle),
                                   ),
                                 ),
@@ -166,6 +220,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 Expanded(
                                   child: TextField(
+                                    controller: tipController,
+                                    onEditingComplete: () {
+                                      setState(() {
+                                        if (tipController.text.isNotEmpty) {
+                                          tip =
+                                              double.parse(tipController.text) /
+                                                  100;
+                                        } else {
+                                          tip = 0;
+                                        }
+                                        FocusScope.of(context).unfocus();
+                                        calculate();
+                                      });
+                                    },
                                     keyboardType:
                                         const TextInputType.numberWithOptions(),
                                     decoration: const InputDecoration(
@@ -194,6 +262,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                   height: 10,
                                 ),
                                 TextField(
+                                  controller: personController,
+                                  onEditingComplete: () {
+                                    setState(() {
+                                      if (personController.text.isNotEmpty) {
+                                        person =
+                                            int.parse(personController.text);
+                                      } else {
+                                        person = 1;
+                                      }
+                                      FocusScope.of(context).unfocus();
+                                      calculate();
+                                    });
+                                  },
                                   keyboardType:
                                       const TextInputType.numberWithOptions(),
                                   decoration: const InputDecoration(
@@ -208,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             ),
                             const SizedBox(
-                              height: 10,
+                              height: 20,
                             ),
                             Container(
                               padding:
@@ -244,7 +325,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       ),
                                       Text(
-                                        '\$0.0',
+                                        '\$${tipPerPerson.toStringAsFixed(2)}',
                                         style: color.subTextTipAmountStyle1,
                                       )
                                     ],
@@ -274,7 +355,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       ),
                                       Text(
-                                        '\$0.0',
+                                        '\$${totalPerPerson.toStringAsFixed(2)}',
                                         style: color.subTextTipAmountStyle1,
                                       )
                                     ],
