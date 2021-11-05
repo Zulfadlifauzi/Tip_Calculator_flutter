@@ -366,7 +366,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 120, vertical: 10),
                                           primary: color.AppColor.kSubTipStyle),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        setState(() {
+                                          tip = 0;
+                                          person = 1;
+                                          bill = 0;
+                                          calculate();
+                                          tipController.clear();
+                                          billController.clear();
+                                          personController.clear();
+                                        });
+                                      },
                                       child: Text(
                                         'RESET',
                                         style: color.buttonTipStyle,
